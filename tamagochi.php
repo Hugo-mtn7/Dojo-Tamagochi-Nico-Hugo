@@ -98,6 +98,8 @@ class Tamagochi
         }
 
         $this->setFullness($fullness);
+
+        return $this;
     }
 
     public function play()
@@ -125,25 +127,28 @@ class Tamagochi
         }
 
         $this->setTiredness($tiredness);
+        return $this;
     }
 
     public function putToBed()
     {     
         $this->setTiredness(1);
+        return $this;
     }
 
     public function poop()
     {     
         $this->setFullness(1);
+        return $this;
     }
 
-    public function timeEffect()
+    public function timeEffect($time)
     {
 
         $happiness = $this->getHappiness();
-        if($happiness>1)
+        if($happiness-$time/1000>1)
         {
-            $happiness-=1;
+            $happiness-=$time/1000;
         }
         else
         {
@@ -152,9 +157,9 @@ class Tamagochi
         $this->setHappiness($happiness);
 
         $tiredness = $this->getTiredness();
-        if($tiredness<=99)
+        if($tiredness+$time/1000<=99)
         {
-            $tiredness+=1;
+            $tiredness+=$time/1000;
         }
         else
         {
@@ -163,15 +168,17 @@ class Tamagochi
         $this->setTiredness($tiredness);
 
         $hungriness = $this->getHungriness();
-        if($hungriness<=99)
+        if($hungriness+$time/1000<=99)
         {
-            $hungriness+=1;
+            $hungriness+=$time/1000;
         }
         else
         {
             $hungriness =100;
         }
         $this->setHungriness($hungriness);
+
+        return $this;
 
     }
 
